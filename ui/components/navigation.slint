@@ -27,7 +27,7 @@ export component Item inherits Rectangle {
     }
 
     states [
-        active when ComponentContext.item-index == root.index: {
+        active when ComponentContext.current-func-index == root.index: {
             root.background: #3661A9;
             title.color: #FFFFFF;
             icon.colorize: #FFFFFF;
@@ -38,7 +38,7 @@ export component Item inherits Rectangle {
         mouse-cursor: pointer;
 
         clicked => {
-            ComponentContext.item-index = root.index;
+            ComponentContext.current-func-index = root.index;
         }
     }
 }
@@ -63,7 +63,13 @@ export component Navigation inherits Rectangle {
             }
         }
 
-        settings := Settings {}
+        VerticalLayout {
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-bottom: 5px;
+            alignment: end;
+            settings := Settings {}
+        }
 
         UserInfo {}
     }

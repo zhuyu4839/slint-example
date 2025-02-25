@@ -1,0 +1,17 @@
+import { ComponentContext, SubFunction, Function } from "global.slint";
+import { Main } from "main.slint";
+
+export { ComponentContext, SubFunction, Function }
+
+export component AppWindow inherits Window {
+    title: "Slint Demo";
+//    icon: @image-url("app.svg");
+    preferred-width: 1280px;
+    preferred-height: 720px;
+    default-font-size: 14px;
+
+    main := Main {
+        height: root.height;
+        width: root.width;
+    }
+}

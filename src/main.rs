@@ -6,6 +6,14 @@ slint::include_modules!();
 fn main() -> anyhow::Result<()> {
     let app = AppWindow::new()?;
 
+    let context = app.global::<ComponentContext>();
+    let mut username: String = context.get_username().into();
+    let lastname = username.pop().unwrap_or_default();
+    context.set_lastname(lastname.into());
+    context.on_execute(|func_idx, sub_idx| {
+        println!("function index: {func_idx}, sub-function index: {sub_idx}");
+    });
+
     // app.on_request_increase_value({
     //     let ui_handle = app.as_weak();
     //     move || {

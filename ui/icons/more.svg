@@ -2,8 +2,8 @@
 
  <g>
   <title>Layer 1</title>
-  <rect id="point1" height="7" width="7" y="10" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
-  <rect id="point2" height="7" width="7" y="25" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
-  <rect id="point3" height="7" width="7" y="40" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
+  <rect id="point1" height="5" width="5" y="35" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
+  <rect id="point2" height="5" width="5" y="50" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
+  <rect id="point3" height="5" width="5" y="65" x="45" stroke-width="0" stroke="#000" fill="#000000"/>
  </g>
 </svg>

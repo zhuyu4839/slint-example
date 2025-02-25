@@ -14,7 +14,6 @@ struct Spliter {
 }
 
 export global ComponentContext {
-    in-out property <int> item-index;
     in-out property <[Function]> functions: [
         {
             name: "功能1",
@@ -61,7 +60,9 @@ export global ComponentContext {
             ]
         },
     ];
+    in-out property <int> current-func-index;   // current function index
     in-out property <string> username: "姓名";
+    in-out property <string> lastname: "名";
     in-out property <string> email: "anymouse@gmail.com";
     in-out property <bool> setting-visable;
     in-out property <bool> upgrade-avaliable;   // software upgrade avaliable
@@ -70,6 +71,8 @@ export global ComponentContext {
     out property <brush> default-bg: #FBFBFB;
     out property <Spliter> spliter: { pix: 1px, bg: #efefef };
     out property <brush> text-color: #262626;
+    
+    callback execute(/* function index */int, /* sub-function index */int);
 }
 
 //export global Themes {

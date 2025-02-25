@@ -3,6 +3,8 @@ import { ComponentContext } from "../global.slint";
 export component UserInfo inherits Rectangle {
     private property <length> font-size: 18px;
 
+    border-width: 1px;
+    border-color: #efefef;
     height: 50px;
     background: ComponentContext.default-bg;
 
@@ -14,11 +16,12 @@ export component UserInfo inherits Rectangle {
             alignment: center;
             Rectangle {
                 background: #3661A9;
-                height: root.height / 2;
+                height: root.height / 2 + 8px;
                 width: self.height;
                 border-radius: self.width / 2;
                 Text {
-                    text: ComponentContext.username;
+                    vertical-alignment: center;
+                    text: ComponentContext.lastname;
                 }
             }
         }
@@ -44,6 +47,7 @@ export component UserInfo inherits Rectangle {
         }
 
         Rectangle {
+            width: 30px;
             Image {
                 source: @image-url("../icons/more.svg");
                 height: root.height;

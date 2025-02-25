@@ -1,42 +1,35 @@
 import { Navigation } from "components/navigation.slint";
 import { GroupBox } from "components/group-box.slint";
-import { ComponentContext } from "global.slint";
+import { ComponentContext, SubFunction, Function } from "global.slint";
 import { ScrollView } from "std-widgets.slint";
 
-export component AppWindow inherits Window {
-    title: "Slint Demo";
-//    icon: @image-url("app.svg");
-    preferred-width: 1280px;
-    preferred-height: 720px;
-    default-font-size: 14px;
+export component Main inherits HorizontalLayout {
+    Navigation {
+        default-height: root.height;
+        default-width: root.width / 8;
+    }
 
-    HorizontalLayout {
-        Navigation {
-            default-height: root.height;
-            default-width: root.width / 8;
-        }
+    Rectangle {
+        width: ComponentContext.spliter.pix;
+        background: ComponentContext.spliter.bg;
+    }
+
+    ScrollView {    // 高度不匹配
+        viewport-height: root.height + 500px;   // TODO
+        vertical-scrollbar-policy: always-off;
 
         Rectangle {
-            width: ComponentContext.spliter.pix;
-            background: ComponentContext.spliter.bg;
-        }
+            preferred-width: (root.width / 8) * 7;
+            preferred-height: root.height;
+            background: ComponentContext.default-bg;
 
-        ScrollView {
-            viewport-height: root.height + 500px;   // TODO
-            vertical-scrollbar-policy: always-off;
-
-            Rectangle {
-                preferred-width: (root.width / 8) * 7;
-                preferred-height: root.height;
-                background: ComponentContext.default-bg;
-
-                VerticalLayout {
-                    alignment: start;
-                    padding-top: 20px;
-                    for func in ComponentContext.functions: GroupBox {
-                        name: func.name;
-                        sub-functions: func.sub-func;
-                    }
+            VerticalLayout {
+                alignment: start;
+                padding-top: 20px;
+                for func[i] in ComponentContext.functions: GroupBox {
+                    name: func.name;
+                    func-index: i;
+                    sub-functions: func.sub-func;
                 }
             }
         }

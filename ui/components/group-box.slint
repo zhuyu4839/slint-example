@@ -3,6 +3,7 @@ import { SubFunction, ComponentContext } from "../global.slint";
 
 export component GroupBox inherits Rectangle {
     in property <string> name;
+    in property <int> func-index;
     in property <[SubFunction]> sub-functions;
 
     private property <length> padding-x: 50px;
@@ -43,6 +44,7 @@ export component GroupBox inherits Rectangle {
 
         QGridLayout {
             sub-functions: root.sub-functions;
+            func-index: root.func-index;
         }
     }
 }
