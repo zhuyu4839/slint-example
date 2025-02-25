@@ -4,7 +4,8 @@ component SettingButton inherits Rectangle {
     in property <string> name;
     in property <image> source;
 
-//    background: #f5f5f5;
+    private property <length> padding-x: 10px;
+
     border-radius: 2px;
     preferred-height: 25px;
 
@@ -13,22 +14,22 @@ component SettingButton inherits Rectangle {
 
         VerticalLayout {
             alignment: center;
-            padding-left: 10px;
+            padding-left: padding-x;
 
             Text {
                 horizontal-alignment: center;
                 text: root.name;
-                color: black;
+                color: ComponentContext.text-color;
             }
         }
 
         VerticalLayout {
             alignment: center;
-            padding-right: 10px;
+            padding-right: padding-x;
 
             Image {
                 source: root.source;
-                colorize: black;
+                colorize: ComponentContext.text-color;
             }
         }
     }
@@ -57,8 +58,8 @@ export component Settings inherits Rectangle {
         }
 
         Rectangle {
-            height: 1px;
-            background: #efefef;
+            height: ComponentContext.spliter.pix;
+            background: ComponentContext.spliter.bg;
         }
 
         SettingButton {
@@ -77,8 +78,8 @@ export component Settings inherits Rectangle {
         }
 
         Rectangle {
-            height: 1px;
-            background: #efefef;
+            height: ComponentContext.spliter.pix;
+            background: ComponentContext.spliter.bg;
         }
 
         SettingButton {

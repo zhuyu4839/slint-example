@@ -4,20 +4,17 @@ import { SubFunction, ComponentContext } from "../global.slint";
 export component GroupBox inherits Rectangle {
     in property <string> name;
     in property <[SubFunction]> sub-functions;
-//    in property <length> default-height: 300px;
-//    in property <length> default-width: 1280px;
-    private property <length> x-offset: 50px;
 
-//    preferred-height: self.default-height;
-//    preferred-width: self.default-width;
-    background: #FBFBFB;
+    private property <length> padding-x: 50px;
+
+    background: ComponentContext.default-bg;
 
     VerticalLayout {
         spacing: 10px;
         alignment: start;
 
         VerticalLayout {  // title
-            padding-left: x-offset;
+            padding-left: padding-x;
             alignment: end;
             height: 30px;
 

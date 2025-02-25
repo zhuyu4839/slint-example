@@ -16,12 +16,12 @@ export component Item inherits Rectangle {
         spacing: 5px;
         icon := Image {
             source: @image-url("../icons/item.svg");
-            colorize: black;
+            colorize: ComponentContext.text-color;
         }
 
         title := Text {
             text: root.name;
-            color: black;
+            color: ComponentContext.text-color;
             vertical-alignment: center;
         }
     }
@@ -49,7 +49,7 @@ export component Navigation inherits Rectangle {
 
     preferred-width: self.default-width;
     preferred-height: self.default-height;
-    background: #FBFBFB;
+    background: ComponentContext.default-bg;
 
     VerticalLayout {
         VerticalLayout {

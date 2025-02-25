@@ -9,7 +9,6 @@ export component AppWindow inherits Window {
     preferred-width: 1280px;
     preferred-height: 720px;
     default-font-size: 14px;
-    background: ComponentContext.default-bg;
 
     HorizontalLayout {
         Navigation {
@@ -18,8 +17,8 @@ export component AppWindow inherits Window {
         }
 
         Rectangle {
-            width: 1px;
-            background: ComponentContext.default-bg;
+            width: ComponentContext.spliter.pix;
+            background: ComponentContext.spliter.bg;
         }
 
         ScrollView {
@@ -29,7 +28,7 @@ export component AppWindow inherits Window {
             Rectangle {
                 preferred-width: (root.width / 8) * 7;
                 preferred-height: root.height;
-                background: #FBFBFB;
+                background: ComponentContext.default-bg;
 
                 VerticalLayout {
                     alignment: start;

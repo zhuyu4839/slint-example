@@ -9,9 +9,9 @@ export component GridItem inherits Rectangle {
     preferred-height: 150px;
     height: (self.width / 2) + 10px;
 
-    background: active ? #ffffff : #FBFBFB;
-    border-color: active ? #efefef : #fff;
-    border-width: 1px;
+    background: active ? #FFFFFF : ComponentContext.default-bg;
+    border-color: active ? ComponentContext.spliter.bg : #FFFFFF;
+    border-width: ComponentContext.spliter.pix;
     border-radius: 5px;
 
     VerticalLayout {
@@ -29,7 +29,7 @@ export component GridItem inherits Rectangle {
         Text {
             horizontal-alignment: center;
             text: root.name;
-            color: #262626;
+            color: ComponentContext.text-color;
 //            font-weight: 500;
         }
     }
@@ -44,12 +44,7 @@ export component GridItem inherits Rectangle {
 
 export component QGridLayout inherits VerticalLayout {
     in property <int> column: ComponentContext.group-column;
-    in property <[SubFunction]> sub-functions: [
-        { name: "子功能1", source: @image-url("../icons/item.svg") },
-        { name: "子功能2", source: @image-url("../icons/item.svg") },
-        { name: "子功能3", source: @image-url("../icons/item.svg") },
-        { name: "子功能4", source: @image-url("../icons/item.svg") },
-    ];
+    in property <[SubFunction]> sub-functions;
 
     private property <length> padding-x: 50px;
     private property <length> padding-y: 20px;
@@ -73,9 +68,5 @@ export component QGridLayout inherits VerticalLayout {
         for j in column - remain: GridItem {
             active: false;
         }
-
-//        for j in column - remain: Rectangle {
-//
-//        }
     }
 }
