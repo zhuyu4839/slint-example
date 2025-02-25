@@ -1,8 +1,10 @@
-import { ComponentContext } from "../global.slint";
+import { ComponentContext, SettingsContext } from "../global.slint";
 
 component SettingButton inherits Rectangle {
     in property <string> name;
     in property <image> source;
+
+    callback clicked();
 
     private property <length> padding-x: 10px;
 
@@ -29,7 +31,7 @@ component SettingButton inherits Rectangle {
 
             Image {
                 source: root.source;
-                colorize: ComponentContext.text-color;
+//                colorize: ComponentContext.text-color;
             }
         }
     }
@@ -37,27 +39,30 @@ component SettingButton inherits Rectangle {
     TouchArea {
         mouse-cursor: pointer;
         clicked => {
-//            root.selected = true;
+            SettingsContext.update-visable();
+            root.clicked();
         }
     }
 }
 
 export component Settings inherits Rectangle {
-    visible: ComponentContext.setting-visable;
+    visible: SettingsContext.visable;
 
     border-width: 1px;
     border-color: #efefef;
 
     VerticalLayout {
-        alignment: end;
+        alignment: center;
+        padding-top: 5px;
         padding-bottom: 5px;
-        padding-left: 20px;
-        padding-right: 20px;
         spacing: 5px;
 
         SettingButton {
             name: @tr("Language");
             source: @image-url("../icons/chevron-right.svg");
+            clicked => {
+                // TODO
+            }
         }
 
         Rectangle {
@@ -67,17 +72,26 @@ export component Settings inherits Rectangle {
 
         SettingButton {
             name: @tr("Upgrade");
-            source: @image-url("");
+            source: ComponentContext.upgradable ? @image-url("../icons/upgradable.svg") : @image-url("");
+            clicked => {
+                // TODO
+            }
         }
 
         SettingButton {
             name: @tr("Connection Settings");
             source: @image-url("");
+            clicked => {
+                // TODO
+            }
         }
 
         SettingButton {
             name: @tr("Update Password");
             source: @image-url("");
+            clicked => {
+                // TODO
+            }
         }
 
         Rectangle {
@@ -88,6 +102,9 @@ export component Settings inherits Rectangle {
         SettingButton {
             name: @tr("Logout");
             source: @image-url("");
+            clicked => {
+                // TODO
+            }
         }
     }
 }

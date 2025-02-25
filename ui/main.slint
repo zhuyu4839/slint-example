@@ -1,6 +1,6 @@
 import { Navigation } from "components/navigation.slint";
 import { GroupBox } from "components/group-box.slint";
-import { ComponentContext, SubFunction, Function } from "global.slint";
+import { ComponentContext, FunctionContext, SubFunction, Function } from "global.slint";
 import { ScrollView } from "std-widgets.slint";
 
 export component Main inherits HorizontalLayout {
@@ -15,7 +15,7 @@ export component Main inherits HorizontalLayout {
     }
 
     ScrollView {    // 高度不匹配
-        viewport-height: root.height + 500px;   // TODO
+        viewport-height: root.height + 350px;   // TODO
         vertical-scrollbar-policy: always-off;
 
         Rectangle {
@@ -26,12 +26,16 @@ export component Main inherits HorizontalLayout {
             VerticalLayout {
                 alignment: start;
                 padding-top: 20px;
-                for func[i] in ComponentContext.functions: GroupBox {
+                for func[i] in FunctionContext.functions: GroupBox {
                     name: func.name;
                     func-index: i;
                     sub-functions: func.sub-func;
                 }
             }
+        }
+
+        scrolled => {
+            debug("viewport-y: ", self.viewport-y);
         }
     }
 }

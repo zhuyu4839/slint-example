@@ -10,17 +10,9 @@ fn main() -> anyhow::Result<()> {
     let mut username: String = context.get_username().into();
     let lastname = username.pop().unwrap_or_default();
     context.set_lastname(lastname.into());
-    context.on_execute(|func_idx, sub_idx| {
+    app.global::<FunctionContext>().on_execute(|func_idx, sub_idx| {
         println!("function index: {func_idx}, sub-function index: {sub_idx}");
     });
-
-    // app.on_request_increase_value({
-    //     let ui_handle = app.as_weak();
-    //     move || {
-    //         let ui = ui_handle.unwrap();
-    //         ui.set_counter(ui.get_counter() + 1);
-    //     }
-    // });
 
     app.run()?;
 

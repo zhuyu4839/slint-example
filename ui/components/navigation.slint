@@ -1,7 +1,7 @@
 // the title on left
 import { Settings } from "settings.slint";
 import { UserInfo } from "userinfo.slint";
-import { ComponentContext } from "../global.slint";
+import { ComponentContext, FunctionContext } from "../global.slint";
 
 export component Item inherits Rectangle {
     in property <int> index;
@@ -27,7 +27,7 @@ export component Item inherits Rectangle {
     }
 
     states [
-        active when ComponentContext.current-func-index == root.index: {
+        active when FunctionContext.current-index == root.index: {
             root.background: #3661A9;
             title.color: #FFFFFF;
             icon.colorize: #FFFFFF;
@@ -38,7 +38,7 @@ export component Item inherits Rectangle {
         mouse-cursor: pointer;
 
         clicked => {
-            ComponentContext.current-func-index = root.index;
+            FunctionContext.update-index(root.index);
         }
     }
 }
@@ -57,7 +57,7 @@ export component Navigation inherits Rectangle {
             padding: 20px;
             spacing: 2px;
 
-            for func[i] in ComponentContext.functions: Item {
+            for func[i] in FunctionContext.functions: Item {
                 index: i;
                 name: func.name;
             }

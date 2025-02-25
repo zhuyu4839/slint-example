@@ -1,4 +1,4 @@
-import { SubFunction, Function, ComponentContext } from "../global.slint";
+import { SubFunction, Function, ComponentContext, FunctionContext } from "../global.slint";
 
 export component GridItem inherits Rectangle {
     in property <image> source;
@@ -38,7 +38,7 @@ export component GridItem inherits Rectangle {
     if self.active: TouchArea {
         mouse-cursor: pointer;
         clicked => {
-            ComponentContext.execute(root.func-index, root.sub-index);
+            FunctionContext.execute(root.func-index, root.sub-index);
         }
     }
 }
@@ -57,7 +57,7 @@ export component QGridLayout inherits VerticalLayout {
     padding-bottom: self.padding-y;
     spacing: 20px;
 
-    property <int> items:sub-functions.length;
+    property <int> items: sub-functions.length;
     for i in Math.ceil(items / column): HorizontalLayout {
         spacing: 20px;
 
