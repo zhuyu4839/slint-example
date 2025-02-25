@@ -1,0 +1,70 @@
+// the title on left
+import { Settings } from "settings.slint";
+import { UserInfo } from "userinfo.slint";
+import { ComponentContext } from "../global.slint";
+
+export component Item inherits Rectangle {
+    in property <int> index;
+    in property <string> name;
+
+    preferred-height: 40px;
+//    background: #3661A9;
+    border-radius: 8px;
+
+    HorizontalLayout {
+        alignment: center;
+        spacing: 5px;
+        icon := Image {
+            source: @image-url("../icons/item.svg");
+            colorize: black;
+        }
+
+        title := Text {
+            text: root.name;
+            color: black;
+            vertical-alignment: center;
+        }
+    }
+
+    states [
+        active when ComponentContext.item-index == root.index: {
+            root.background: #3661A9;
+            title.color: #FFFFFF;
+            icon.colorize: #FFFFFF;
+        }
+    ]
+
+    TouchArea {
+        mouse-cursor: pointer;
+
+        clicked => {
+            ComponentContext.item-index = root.index;
+        }
+    }
+}
+
+export component Navigation inherits Rectangle {
+    in property <length> default-height;
+    in property <length> default-width: 240px;
+
+    preferred-width: self.default-width;
+    preferred-height: self.default-height;
+    background: #FBFBFB;
+
+    VerticalLayout {
+        VerticalLayout {
+            alignment: start;
+            padding: 20px;
+            spacing: 2px;
+
+            for func[i] in ComponentContext.functions: Item {
+                index: i;
+                name: func.name;
+            }
+        }
+
+        settings := Settings {}
+
+        UserInfo {}
+    }
+}

@@ -1,0 +1,16 @@
+[package]
+name = "vehicle-tool"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+log = "0.4"
+tracing = "0.1"
+anyhow = "1"
+thiserror = "2"
+
+slint = "1.9"
+
+[build-dependencies]
+anyhow = "1"
+slint-build = "1.9"

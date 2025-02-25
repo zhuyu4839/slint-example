@@ -1,0 +1,89 @@
+import { ComponentContext } from "../global.slint";
+
+component SettingButton inherits Rectangle {
+    in property <string> name;
+    in property <image> source;
+
+//    background: #f5f5f5;
+    border-radius: 2px;
+    preferred-height: 25px;
+
+    HorizontalLayout {
+        alignment: space-between;
+
+        VerticalLayout {
+            alignment: center;
+            padding-left: 10px;
+
+            Text {
+                horizontal-alignment: center;
+                text: root.name;
+                color: black;
+            }
+        }
+
+        VerticalLayout {
+            alignment: center;
+            padding-right: 10px;
+
+            Image {
+                source: root.source;
+                colorize: black;
+            }
+        }
+    }
+
+    TouchArea {
+        mouse-cursor: pointer;
+        clicked => {
+//            root.selected = true;
+        }
+    }
+}
+
+export component Settings inherits Rectangle {
+    visible: ComponentContext.setting-visable;
+
+    VerticalLayout {
+        alignment: end;
+        padding-bottom: 5px;
+        padding-left: 20px;
+        padding-right: 20px;
+        spacing: 5px;
+
+        SettingButton {
+            name: @tr("Language");
+            source: @image-url("../icons/chevron-right.svg");
+        }
+
+        Rectangle {
+            height: 1px;
+            background: #efefef;
+        }
+
+        SettingButton {
+            name: @tr("Upgrade");
+            source: @image-url("");
+        }
+
+        SettingButton {
+            name: @tr("Connection Settings");
+            source: @image-url("");
+        }
+
+        SettingButton {
+            name: @tr("Update Password");
+            source: @image-url("");
+        }
+
+        Rectangle {
+            height: 1px;
+            background: #efefef;
+        }
+
+        SettingButton {
+            name: @tr("Logout");
+            source: @image-url("");
+        }
+    }
+}

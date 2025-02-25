@@ -1,0 +1,77 @@
+export struct SubFunction {
+    name: string,
+    source: image,
+}
+
+export struct Function {
+    name: string,
+    sub-func: [SubFunction],
+}
+
+struct Spliter {
+    pix: length,
+    bg: brush,
+}
+
+export global ComponentContext {
+    in-out property <int> item-index;
+    in-out property <[Function]> functions: [
+        {
+            name: "功能1",
+            sub-func: [
+                { name: "子功能1", source: @image-url("icons/item.svg") },
+                { name: "子功能2", source: @image-url("icons/item.svg") },
+                { name: "子功能3", source: @image-url("icons/item.svg") },
+                { name: "子功能4", source: @image-url("icons/item.svg") },
+                { name: "子功能5", source: @image-url("icons/item.svg") },
+                { name: "子功能6", source: @image-url("icons/item.svg") },
+            ]
+        },
+        {
+            name: "功能2",
+            sub-func: [
+                { name: "子功能1", source: @image-url("icons/item.svg") },
+                { name: "子功能2", source: @image-url("icons/item.svg") },
+                { name: "子功能3", source: @image-url("icons/item.svg") },
+            ]
+        },
+        {
+            name: "功能3",
+            sub-func: [
+                { name: "子功能1", source: @image-url("icons/item.svg") },
+                { name: "子功能2", source: @image-url("icons/item.svg") },
+                { name: "子功能3", source: @image-url("icons/item.svg") },
+                { name: "子功能4", source: @image-url("icons/item.svg") },
+                { name: "子功能5", source: @image-url("icons/item.svg") },
+            ]
+        },
+        {
+            name: "功能4",
+            sub-func: [
+                { name: "子功能1", source: @image-url("icons/item.svg") },
+                { name: "子功能2", source: @image-url("icons/item.svg") },
+                { name: "子功能3", source: @image-url("icons/item.svg") },
+                { name: "子功能4", source: @image-url("icons/item.svg") },
+            ]
+        },
+        {
+            name: "功能5",
+            sub-func: [
+                { name: "子功能1", source: @image-url("icons/item.svg") },
+            ]
+        },
+    ];
+    in-out property <string> username: "姓名";
+    in-out property <string> email: "anymouse@gmail.com";
+    in-out property <bool> setting-visable;
+    in-out property <bool> version-avaliable;
+
+    out property <int> group-column: 5;
+    out property <brush> default-bg: #efefef;
+    out property <Spliter> spliter: { pix: 1px, bg: #efefef };
+    out property <brush> text-color: #262626;
+}
+
+//export global Themes {
+//
+//}

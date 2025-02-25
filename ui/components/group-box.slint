@@ -1,0 +1,51 @@
+import { QGridLayout } from "grid-layout.slint";
+import { SubFunction, ComponentContext } from "../global.slint";
+
+export component GroupBox inherits Rectangle {
+    in property <string> name;
+    in property <[SubFunction]> sub-functions;
+//    in property <length> default-height: 300px;
+//    in property <length> default-width: 1280px;
+    private property <length> x-offset: 50px;
+
+//    preferred-height: self.default-height;
+//    preferred-width: self.default-width;
+    background: #FBFBFB;
+
+    VerticalLayout {
+        spacing: 10px;
+        alignment: start;
+
+        VerticalLayout {  // title
+            padding-left: x-offset;
+            alignment: end;
+            height: 30px;
+
+            HorizontalLayout {
+                alignment: start;
+                padding: 10px;
+                spacing: 10px;
+
+                Image {
+                    source: @image-url("../icons/point.svg");
+                    colorize: black;
+                }
+
+                Text {
+                    horizontal-alignment: center;
+                    text: root.name;
+                    color: ComponentContext.text-color;
+                }
+            }
+
+            Rectangle {
+                height: ComponentContext.spliter.pix;
+                background: ComponentContext.spliter.bg;
+            }
+        }
+
+        QGridLayout {
+            sub-functions: root.sub-functions;
+        }
+    }
+}

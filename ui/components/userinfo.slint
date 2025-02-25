@@ -1,0 +1,60 @@
+import { ComponentContext } from "../global.slint";
+
+export component UserInfo inherits Rectangle {
+    private property <length> font-size: 18px;
+
+    height: 50px;
+    background: #FBFBFB;
+
+    HorizontalLayout {
+        spacing: 5px;
+        padding: 5px;
+
+        VerticalLayout {
+            alignment: center;
+            Rectangle {
+                background: #3661A9;
+                height: root.height / 2;
+                width: self.height;
+                border-radius: self.width / 2;
+                Text {
+                    text: ComponentContext.username;
+                }
+            }
+        }
+
+        VerticalLayout {
+            alignment: center;
+            spacing: 2px;
+
+            Text {
+                text: ComponentContext.username;
+                font-weight: 600;
+                color: black;
+                vertical-alignment: center;
+                font-size: root.font-size;
+            }
+
+            Text {
+                text: ComponentContext.email;
+                color: #8C8C8C;
+                vertical-alignment: center;
+                font-size: root.font-size / 2;
+            }
+        }
+
+        Rectangle {
+            Image {
+                source: @image-url("../icons/more.svg");
+                height: root.height;
+            }
+
+            TouchArea {
+                mouse-cursor: pointer;
+                clicked => {
+                    ComponentContext.setting-visable = !ComponentContext.setting-visable;
+                }
+            }
+        }
+    }
+}
