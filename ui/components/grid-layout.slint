@@ -1,4 +1,4 @@
-import { SubFunction, Function, ComponentContext, FunctionContext } from "../global.slint";
+import { ComponentContext, FunctionContext, SubFunction } from "../global.slint";
 
 export component GridItem inherits Rectangle {
     in property <image> source;
@@ -7,7 +7,7 @@ export component GridItem inherits Rectangle {
     in property <int> sub-index;
     in property <bool> active: true;
 
-    preferred-width: 300px;
+    preferred-width: 100px; // preferred-width必须指定一个合适的值 否则影响空GridItem的宽度
     height: (self.width / 2) + 10px;
 
     background: active ? #FFFFFF : ComponentContext.default-bg;
@@ -48,8 +48,9 @@ export component QGridLayout inherits VerticalLayout {
     in property <[SubFunction]> sub-functions;
     in property <int> func-index;
 
+    private property <int> items: sub-functions.length;
     private property <length> padding-x: 50px;
-    private property <length> padding-y: 20px;
+    private property <length> padding-y: 10px;
 
     padding-left: self.padding-x;
     padding-right: self.padding-x;
@@ -57,7 +58,6 @@ export component QGridLayout inherits VerticalLayout {
     padding-bottom: self.padding-y;
     spacing: 20px;
 
-    property <int> items: sub-functions.length;
     for i in Math.ceil(items / column): HorizontalLayout {
         spacing: 20px;
 

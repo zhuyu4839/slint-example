@@ -24,8 +24,8 @@ msgid "Upgrade"
 msgstr "软件更新"
 
 #: ui/components/settings.slint:70
-msgctxt "ConnectionSettings"
-msgid "Connection Settings"
+msgctxt "ConnectionSetting"
+msgid "Connection Setting"
 msgstr "连接设置"
 
 #: ui/components/settings.slint:75

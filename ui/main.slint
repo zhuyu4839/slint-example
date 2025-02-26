@@ -1,12 +1,17 @@
 import { Navigation } from "components/navigation.slint";
 import { GroupBox } from "components/group-box.slint";
-import { ComponentContext, FunctionContext, SubFunction, Function } from "global.slint";
+import { ComponentContext, FunctionContext } from "global.slint";
 import { ScrollView } from "std-widgets.slint";
 
 export component Main inherits HorizontalLayout {
+    in-out property <length> scroll-view-width: sv.width;
+    in-out property <length> scroll-view-height: sv.height;
+
     Navigation {
         default-height: root.height;
         default-width: root.width / 8;
+        scroll-view-height: root.scroll-view-height;
+        scroll-view-width: root.scroll-view-width;
     }
 
     Rectangle {
@@ -14,28 +19,29 @@ export component Main inherits HorizontalLayout {
         background: ComponentContext.spliter.bg;
     }
 
-    ScrollView {    // 高度不匹配
-        viewport-height: root.height + 350px;   // TODO
+    sv := ScrollView {
         vertical-scrollbar-policy: always-off;
-
-        Rectangle {
+        viewport-y <=> ComponentContext.main-viewport-y;
+        VerticalLayout {
             preferred-width: (root.width / 8) * 7;
             preferred-height: root.height;
-            background: ComponentContext.default-bg;
+            Rectangle {
+                background: ComponentContext.default-bg;
 
-            VerticalLayout {
-                alignment: start;
-                padding-top: 20px;
-                for func[i] in FunctionContext.functions: GroupBox {
-                    name: func.name;
-                    func-index: i;
-                    sub-functions: func.sub-func;
+                VerticalLayout {
+                    alignment: start;
+                    padding-top: 20px;
+                    for func[i] in FunctionContext.functions: gb := GroupBox {
+                        name: func.name;
+                        func-index: i;
+                        sub-functions: func.sub-func;
+                    }
                 }
             }
         }
 
         scrolled => {
-            debug("viewport-y: ", self.viewport-y);
+            ComponentContext.main-scroller(self.width, self.height);
         }
     }
 }

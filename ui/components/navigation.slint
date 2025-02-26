@@ -6,9 +6,10 @@ import { ComponentContext, FunctionContext } from "../global.slint";
 export component Item inherits Rectangle {
     in property <int> index;
     in property <string> name;
+    in property <length> scroll-view-width;
+    in property <length> scroll-view-height;
 
     preferred-height: 40px;
-//    background: #3661A9;
     border-radius: 8px;
 
     HorizontalLayout {
@@ -38,6 +39,7 @@ export component Item inherits Rectangle {
         mouse-cursor: pointer;
 
         clicked => {
+            ComponentContext.fix-viewport-y(FunctionContext.current-index, root.index, root.scroll-view-width, root.scroll-view-height);
             FunctionContext.update-index(root.index);
         }
     }
@@ -46,6 +48,9 @@ export component Item inherits Rectangle {
 export component Navigation inherits Rectangle {
     in property <length> default-height;
     in property <length> default-width: 240px;
+
+    in property <length> scroll-view-width;
+    in property <length> scroll-view-height;
 
     preferred-width: self.default-width;
     preferred-height: self.default-height;
@@ -60,6 +65,8 @@ export component Navigation inherits Rectangle {
             for func[i] in FunctionContext.functions: Item {
                 index: i;
                 name: func.name;
+                scroll-view-width: root.scroll-view-width;
+                scroll-view-height: root.scroll-view-height;
             }
         }
 
