@@ -13,4 +13,4 @@ slint = "1.10"
 
 [build-dependencies]
 anyhow = "1"
-slint-build = "1.9"
+slint-build = "1.10"

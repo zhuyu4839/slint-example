@@ -1,0 +1,44 @@
+import { GroupBox, Navigation } from "../components/prelude.slint";
+import { Context, Function, FunctionGroup, Interface } from "../globals/prelude.slint";
+import { ScrollView } from "std-widgets.slint";
+
+export component MainWindow inherits HorizontalLayout {
+    Navigation {
+        preferred-height: root.height;
+        preferred-width: root.width / 8;
+    }
+
+    Rectangle {
+        width: Interface.split-size;
+        background: Interface.split-bg;
+    }
+
+    ScrollView {
+//        viewport-height: root.height + 550px;   // TODO
+        viewport-y <=> Context.scroll-viewport-y;
+        vertical-scrollbar-policy: always-off;
+
+        VerticalLayout {  // TODO crash
+            Rectangle {
+                preferred-width: (root.width / 8) * 7;
+                preferred-height: root.height;
+                background: Interface.default-bg;
+
+                VerticalLayout {
+                    alignment: start;
+                    padding-top: 20px;
+                    for func[i] in Context.functions: gb := GroupBox {
+                        title: func.name;
+                        index: i;
+                        functions: func.items;
+//                        Context.goupbox-heights[i] = gb.height;
+                    }
+                }
+            }
+        }
+
+        scrolled => {
+            debug("viewport-y: ", self.viewport-y);
+        }
+    }
+}

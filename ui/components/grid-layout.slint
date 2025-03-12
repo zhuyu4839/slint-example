@@ -1,18 +1,18 @@
-import { ComponentContext, FunctionContext, SubFunction } from "../global.slint";
+import { Context, Function, FunctionGroup, Interface } from "../globals/prelude.slint";
 
 export component GridItem inherits Rectangle {
-    in property <image> source;
     in property <string> name;
-    in property <int> func-index;
-    in property <int> sub-index;
+    // x: the function index, y: the sub-function index
+    in property <image> icon;
+    in property <{x: int, y: int}> point;
     in property <bool> active: true;
 
-    preferred-width: 100px; // preferred-width必须指定一个合适的值 否则影响空GridItem的宽度
-    height: (self.width / 2) + 10px;
+    preferred-width: 300px; // preferred-width必须指定一个合适的值 否则影响空GridItem的宽度
+    height: self.width * 0.6;
 
-    background: active ? #FFFFFF : ComponentContext.default-bg;
-    border-color: active ? ComponentContext.spliter.bg : #FFFFFF;
-    border-width: ComponentContext.spliter.pix;
+    background: active ? Interface.none-bg : Interface.default-bg;
+    border-color: active ? Interface.split-bg : Interface.none-bg;
+    border-width: Interface.split-size;
     border-radius: 5px;
 
     VerticalLayout {
@@ -22,7 +22,7 @@ export component GridItem inherits Rectangle {
                 horizontal-alignment: center;
                 height: root.height / 2;
                 width: self.height;
-                source: root.source;
+                source: root.icon;
                 colorize: #324C79;
             }
         }
@@ -30,7 +30,7 @@ export component GridItem inherits Rectangle {
         Text {
             horizontal-alignment: center;
             text: root.name;
-            color: ComponentContext.text-color;
+            color: Interface.text-color;
 //            font-weight: 500;
         }
     }
@@ -38,19 +38,18 @@ export component GridItem inherits Rectangle {
     if self.active: TouchArea {
         mouse-cursor: pointer;
         clicked => {
-            FunctionContext.execute(root.func-index, root.sub-index);
+            Context.button-clicked(point.x, point.y);
         }
     }
 }
 
-export component QGridLayout inherits VerticalLayout {
-    in property <int> column: ComponentContext.group-column;
-    in property <[SubFunction]> sub-functions;
-    in property <int> func-index;
+export component GridLayout inherits VerticalLayout {
+    in property <int> column: Context.group-column;
+    in property <[Function]> functions;
+    in property <int> index;
 
-    private property <int> items: sub-functions.length;
     private property <length> padding-x: 50px;
-    private property <length> padding-y: 10px;
+    private property <length> padding-y: 20px;
 
     padding-left: self.padding-x;
     padding-right: self.padding-x;
@@ -58,16 +57,16 @@ export component QGridLayout inherits VerticalLayout {
     padding-bottom: self.padding-y;
     spacing: 20px;
 
-    for i in Math.ceil(items / column): HorizontalLayout {
+    property <int> items: functions.length;
+    for i in ceil(items / column): HorizontalLayout {
         spacing: 20px;
 
         property <int> remain: items - column * i;
         for j in (items - column * (i + 1) > 0 ? column: remain): GridItem {
             property <int> index: column * i + j;
-            name: sub-functions[index].name;
-            source: sub-functions[index].source;
-            func-index: root.func-index;
-            sub-index: index;
+            name: functions[index].name;
+            icon: functions[index].icon;
+            point: {x: root.index, y: index};
         }
 
         for j in column - remain: GridItem {

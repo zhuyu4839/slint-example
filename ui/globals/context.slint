@@ -1,0 +1,83 @@
+import { Function, FunctionGroup } from "structs.slint";
+
+export global Context {
+    in-out property <string> username: "Username";
+    in-out property <string> lastname: "U";
+    in-out property <string> email: "anymouse@gmail.com";
+    in-out property <bool> upgradable: true;  // software upgrade avaliable
+    
+    in-out property <[FunctionGroup]> functions: TestContext.functions;
+    in-out property <[length]> goupbox-heights;
+
+    in-out property <int> current-index;
+    public function update-index(index: int) {
+        current-index = index;
+    }
+    callback button-clicked(x: int, y: int);
+
+    out property <bool> setting-visable: false;
+    public function change-setting-visable() {
+        setting-visable = !setting-visable;
+    }
+
+    out property <int> group-column: 5;
+
+    in-out property <length> scroll-viewport-y;
+}
+
+// test context
+global TestContext {
+    out property <[FunctionGroup]> functions: [
+         {
+             name: "功能1",
+             items: [
+                 { name: "子功能1", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能2", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能3", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能4", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能5", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能6", icon: @image-url("../icons/item.svg") },
+             ]
+         },
+         {
+             name: "功能2",
+             items: [
+                 { name: "子功能1", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能2", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能3", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能4", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能5", icon: @image-url("../icons/item.svg") },
+             ]
+         },
+         {
+             name: "功能3",
+             items: [
+                 { name: "子功能1", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能2", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能3", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能4", icon: @image-url("../icons/item.svg") },
+             ]
+         },
+         {
+             name: "功能4",
+             items: [
+                 { name: "子功能1", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能2", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能3", icon: @image-url("../icons/item.svg") },
+             ]
+         },
+         {
+             name: "功能5",
+             items: [
+                 { name: "子功能1", icon: @image-url("../icons/item.svg") },
+                 { name: "子功能2", icon: @image-url("../icons/item.svg") },
+             ]
+         },
+         {
+              name: "功能6",
+              items: [
+                  { name: "子功能1", icon: @image-url("../icons/item.svg") },
+              ]
+          },
+    ];
+}

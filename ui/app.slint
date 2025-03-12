@@ -1,7 +1,7 @@
-import { ComponentContext, FunctionContext, SubFunction, Function } from "global.slint";
-import { Main } from "main.slint";
+import { Context, Function, FunctionGroup } from "globals/prelude.slint";
+import { MainWindow } from "windows/prelude.slint";
 
-export { ComponentContext, FunctionContext, SubFunction, Function }
+export { Context, Function, FunctionGroup }
 
 export component AppWindow inherits Window {
     title: "Slint Demo";
@@ -10,7 +10,7 @@ export component AppWindow inherits Window {
     preferred-height: 720px;
     default-font-size: 14px;
 
-    main := Main {
+    main := MainWindow {
         height: root.height;
         width: root.width;
     }

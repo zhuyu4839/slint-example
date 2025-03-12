@@ -1,12 +1,12 @@
-import { ComponentContext, SettingsContext } from "../global.slint";
+import { Context, Interface } from "../globals/prelude.slint";
 
 export component UserInfo inherits Rectangle {
     private property <length> font-size: 18px;
 
-    border-width: 1px;
-    border-color: #efefef;
+    border-width: Interface.border-width;
+    border-color: Interface.border-color;
     height: 50px;
-    background: ComponentContext.default-bg;
+    background: Interface.default-bg;
 
     HorizontalLayout {
         spacing: 5px;
@@ -21,7 +21,7 @@ export component UserInfo inherits Rectangle {
                 border-radius: self.width / 2;
                 Text {
                     vertical-alignment: center;
-                    text: ComponentContext.lastname;
+                    text: Context.lastname;
                 }
             }
         }
@@ -31,20 +31,18 @@ export component UserInfo inherits Rectangle {
             spacing: 2px;
 
             Text {
-                text: ComponentContext.username;
+                text: Context.username;
                 font-weight: 600;
-                color: ComponentContext.text-color;
+                color: Interface.text-color;
                 vertical-alignment: center;
                 font-size: root.font-size;
-                overflow: elide;
             }
 
             Text {
-                text: ComponentContext.email;
+                text: Context.email;
                 color: #8C8C8C;
                 vertical-alignment: center;
                 font-size: root.font-size / 2;
-                overflow: elide;
             }
         }
 
@@ -58,7 +56,7 @@ export component UserInfo inherits Rectangle {
             TouchArea {
                 mouse-cursor: pointer;
                 clicked => {
-                    SettingsContext.update-visable();
+                    Context.change-setting-visable();
                 }
             }
         }

@@ -1,15 +1,14 @@
 // the title on left
 import { Settings } from "settings.slint";
 import { UserInfo } from "userinfo.slint";
-import { ComponentContext, FunctionContext } from "../global.slint";
+import { Context, Interface } from "../globals/prelude.slint";
 
-export component Item inherits Rectangle {
+export component NavItem inherits Rectangle {
     in property <int> index;
     in property <string> name;
-    in property <length> scroll-view-width;
-    in property <length> scroll-view-height;
 
     preferred-height: 40px;
+//    background: #3661A9;
     border-radius: 8px;
 
     HorizontalLayout {
@@ -17,21 +16,21 @@ export component Item inherits Rectangle {
         spacing: 5px;
         icon := Image {
             source: @image-url("../icons/item.svg");
-            colorize: ComponentContext.text-color;
+            colorize: Interface.text-color;
         }
 
         title := Text {
             text: root.name;
-            color: ComponentContext.text-color;
+            color: Interface.text-color;
             vertical-alignment: center;
         }
     }
 
     states [
-        active when FunctionContext.current-index == root.index: {
+        active when Context.current-index == root.index: {
             root.background: #3661A9;
-            title.color: #FFFFFF;
-            icon.colorize: #FFFFFF;
+            title.color: Interface.none-bg;
+            icon.colorize: Interface.none-bg;
         }
     ]
 
@@ -39,22 +38,14 @@ export component Item inherits Rectangle {
         mouse-cursor: pointer;
 
         clicked => {
-            ComponentContext.fix-viewport-y(FunctionContext.current-index, root.index, root.scroll-view-width, root.scroll-view-height);
-            FunctionContext.update-index(root.index);
+            Context.update-index(root.index);
         }
     }
 }
 
 export component Navigation inherits Rectangle {
-    in property <length> default-height;
-    in property <length> default-width: 240px;
-
-    in property <length> scroll-view-width;
-    in property <length> scroll-view-height;
-
-    preferred-width: self.default-width;
-    preferred-height: self.default-height;
-    background: ComponentContext.default-bg;
+    preferred-width: 240px;
+    background: Interface.default-bg;
 
     VerticalLayout {
         VerticalLayout {
@@ -62,11 +53,9 @@ export component Navigation inherits Rectangle {
             padding: 20px;
             spacing: 2px;
 
-            for func[i] in FunctionContext.functions: Item {
+            for func[i] in Context.functions: NavItem {
                 index: i;
                 name: func.name;
-                scroll-view-width: root.scroll-view-width;
-                scroll-view-height: root.scroll-view-height;
             }
         }
 

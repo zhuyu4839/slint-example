@@ -1,14 +1,14 @@
-import { QGridLayout } from "grid-layout.slint";
-import { SubFunction, ComponentContext } from "../global.slint";
+import { GridLayout } from "grid-layout.slint";
+import { Context, Function, Interface } from "../globals/prelude.slint";
 
 export component GroupBox inherits Rectangle {
-    in property <string> name;
-    in property <int> func-index;
-    in property <[SubFunction]> sub-functions;
+    in property <string> title;
+    in property <int> index;
+    in property <[Function]> functions;
 
     private property <length> padding-x: 50px;
 
-    background: ComponentContext.default-bg;
+    background: Interface.default-bg;
 
     VerticalLayout {
         spacing: 10px;
@@ -31,20 +31,25 @@ export component GroupBox inherits Rectangle {
 
                 Text {
                     horizontal-alignment: center;
-                    text: root.name;
-                    color: ComponentContext.text-color;
+                    text: root.title;
+                    color: Interface.text-color;
                 }
             }
 
             Rectangle {
-                height: ComponentContext.spliter.pix;
-                background: ComponentContext.spliter.bg;
+                height: Interface.split-size;
+                background: Interface.split-bg;
             }
         }
 
-        QGridLayout {
-            sub-functions: root.sub-functions;
-            func-index: root.func-index;
+        GridLayout {
+            functions: root.functions;
+            index: root.index;
         }
+    }
+
+    changed height => {
+        Context.goupbox-heights[index] = self.height;
+        debug("index:", self.index, "height:", self.height);
     }
 }
