@@ -3,6 +3,8 @@ import { Context, Function, FunctionGroup, Interface } from "../globals/prelude.
 import { ScrollView } from "std-widgets.slint";
 
 export component MainWindow inherits HorizontalLayout {
+    height <=> Context.window-height;
+
     Navigation {
         preferred-height: root.height;
         preferred-width: root.width / 8;
@@ -14,25 +16,24 @@ export component MainWindow inherits HorizontalLayout {
     }
 
     ScrollView {
+        viewport-height <=> Context.viewport-height;
 //        viewport-height: root.height + 550px;   // TODO
         viewport-y <=> Context.scroll-viewport-y;
         vertical-scrollbar-policy: always-off;
 
-        VerticalLayout {  // TODO crash
-            Rectangle {
-                preferred-width: (root.width / 8) * 7;
-                preferred-height: root.height;
-                background: Interface.default-bg;
+        Rectangle {
+            preferred-width: (root.width / 8) * 7;
+            preferred-height: root.height;
+            background: Interface.default-bg;
 
-                VerticalLayout {
-                    alignment: start;
-                    padding-top: 20px;
-                    for func[i] in Context.functions: gb := GroupBox {
-                        title: func.name;
-                        index: i;
-                        functions: func.items;
-//                        Context.goupbox-heights[i] = gb.height;
-                    }
+            VerticalLayout {
+                alignment: start;
+                padding-top: 20px;
+                for func[i] in Context.functions: gb := GroupBox {
+                    title: func.name;
+                    index: i;
+                    functions: func.items;
+//                    Context.goupbox-heights[i] = gb.height;
                 }
             }
         }
